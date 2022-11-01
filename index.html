@@ -95,7 +95,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-8 col-sm-8 col-lg-8 list">
+            <div class="col-8 col-sm-8 col-lg-8">
               <div class="card-header">List of Patients in Queue</div>
               <p></p>
               <ul class="list-group data-container" id="patients"></ul>
@@ -177,27 +177,44 @@
             console.log(res)
           if (res) {
             let current = Object.values(res.objects)[0];
+            if(current.status == 'Active'){
+                document
+                .getElementById("pImg")
+                .setAttribute(
+                  "src",
+                  "https://foresight.cynoxit.com.ng/" + current.patient.image
+                );
+              document.getElementById("pName").innerText =
+                current.patient.full_name;
+              document.getElementById("pGender").innerText =
+                "(" + current.patient._gender + ") ";
+              document.getElementById("pFileNo").innerText =
+                "Folder Number: " + current.patient.folder_number;
+            }else{
+                current = Object.values(res.objects)[2]
+                document
+                .getElementById("pImg")
+                .setAttribute(
+                  "src",
+                  "https://foresight.cynoxit.com.ng/" + current.patient.image
+                );
+              document.getElementById("pName").innerText =
+                current.patient.full_name;
+              document.getElementById("pGender").innerText =
+                "(" + current.patient._gender + ") ";
+              document.getElementById("pFileNo").innerText =
+                "Folder Number: " + current.patient.folder_number;
+            }
             console.log(current);
-            document
-              .getElementById("pImg")
-              .setAttribute(
-                "src",
-                "https://foresight.cynoxit.com.ng/" + current.patient.image
-              );
-            document.getElementById("pName").innerText =
-              current.patient.full_name;
-            document.getElementById("pGender").innerText =
-              "(" + current.patient._gender + ") ";
-            document.getElementById("pFileNo").innerText =
-              "Folder Number: " + current.patient.folder_number;
+          
             console.log(res);
             var dataHtml = "";
-            $.each(res.objects.slice(indx, 0), (index, patients) => {
+            $.each(res.objects.slice(1, res.objects.length), (index, patients) => {
               if (patients.status == "Active") {
                 dataHtml += ` <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                             <div class="flex-column">
                             ${patients.patient.full_name} (${patients.patient._gender})
-                            <span class="badge bg-info badge-pill" id="timer">in 3 hours</span>
+                            
                             </div>
                             <div class="image-parent">
                                 <img src="https://foresight.cynoxit.com.ng/${patients.patient.image}" class="img-fluid img-thumbnail" alt="quixote">
@@ -213,7 +230,7 @@
           }
         },
       });
-      window.setTimeout(function(){location.reload()},5000)
     </script>
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=VBl3mDkW"></script>
   </body>
 </html>

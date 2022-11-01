@@ -233,7 +233,12 @@
     </script>
     <script src="https://code.responsivevoice.org/responsivevoice.js?key=VBl3mDkW"></script>
     <script>	
-      setTimeout(responsiveVoice.speak('Etafo, Rapheal You are Next, so get ready' {rate: 1.5}), 1500);
+      responsiveVoice.setTextReplacements([{
+          searchvalue: "human",
+          newvalue: "robot",
+          collectionvoices: "UK English Female"
+      }]);
+      setTimeout(responsiveVoice.speak('Etafo, Rapheal You are Next, so get ready',{rate: 1.5}), 1500);
     </script>
   </body>
 </html>
